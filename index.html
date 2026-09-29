@@ -2,25 +2,11 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Zuzia & Czarek</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-
-<link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
 <style>
-
-/* =====================================================
-   PODSTAWA — TYLKO TELEFON
-===================================================== */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -32,608 +18,487 @@ html {
 }
 
 body {
-    background: #050507;
-    color: #fff;
-    font-family: Inter, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #08090c;
+    color: white;
     overflow-x: hidden;
 }
 
-.page {
-    width: 100%;
-    max-width: 480px;
-    margin: 0 auto;
+/* =========================
+   VIDEO BACKGROUND
+========================= */
+
+.video-section {
     position: relative;
+    height: 100svh;
+    min-height: 650px;
     overflow: hidden;
-    background: #08090c;
+    display: flex;
+    align-items: flex-end;
 }
 
-
-/* =====================================================
-   FILM W TLE
-===================================================== */
-
-#backgroundVideo {
-    position: fixed;
+.video-section video {
+    position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
-    z-index: -3;
-
-    background: #050507;
+    z-index: 0;
 }
 
-.video-darkness {
-    position: fixed;
+.video-overlay {
+    position: absolute;
     inset: 0;
-
     background:
         linear-gradient(
             to bottom,
-            rgba(0,0,0,.55),
-            rgba(0,0,0,.72) 45%,
-            rgba(0,0,0,.94)
+            rgba(0,0,0,.20),
+            rgba(0,0,0,.25) 40%,
+            rgba(0,0,0,.88) 100%
         );
-
-    z-index: -2;
-
-    pointer-events: none;
-}
-
-.video-blur {
-    position: fixed;
-    inset: 0;
-
-    backdrop-filter: blur(2px);
-
-    z-index: -1;
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero {
-    min-height: 100svh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 35px 22px;
-
-    text-align: center;
-
-    position: relative;
+    z-index: 1;
 }
 
 .hero-content {
+    position: relative;
+    z-index: 2;
     width: 100%;
-}
-
-.small-title {
-    text-transform: uppercase;
-    letter-spacing: 4px;
-
-    font-size: 10px;
-
-    color: rgba(255,255,255,.7);
-
-    margin-bottom: 25px;
-}
-
-.hero h1 {
-    font-family: "Playfair Display", serif;
-
-    font-size: 67px;
-
-    line-height: .92;
-
-    font-weight: 500;
-
-    letter-spacing: -2px;
-
-    margin-bottom: 25px;
-}
-
-.hero h1 span {
-    color: #d8b8ff;
-}
-
-.hero-subtitle {
-    color: rgba(255,255,255,.7);
-
-    font-size: 13px;
-
-    margin-bottom: 35px;
-}
-
-
-/* =====================================================
-   LICZNIK
-===================================================== */
-
-.counter {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 8px;
-
-    width: 100%;
-}
-
-.counter-box {
-    padding: 14px 5px;
-
-    border-radius: 17px;
-
-    background: rgba(255,255,255,.08);
-
-    border: 1px solid rgba(255,255,255,.13);
-
-    backdrop-filter: blur(15px);
-}
-
-.counter-number {
-    font-size: 23px;
-
-    font-weight: 700;
-
-    line-height: 1.1;
-}
-
-.counter-label {
-    margin-top: 5px;
-
-    font-size: 8px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1.5px;
-
-    color: rgba(255,255,255,.5);
-}
-
-
-/* =====================================================
-   SEKCJE
-===================================================== */
-
-section {
-    padding: 75px 15px;
-}
-
-.section-title {
-    font-family: "Playfair Display", serif;
-
-    font-size: 42px;
-
-    font-weight: 500;
-
+    padding: 35px 22px;
     text-align: center;
+}
 
+.hero-small {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: .75;
     margin-bottom: 12px;
 }
 
-.section-description {
+.hero-title {
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -2px;
+}
+
+.hero-date {
+    margin-top: 14px;
+    font-size: 15px;
+    opacity: .8;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    position: relative;
+    z-index: 3;
+    background: #08090c;
+}
+
+.section {
+    padding: 65px 18px;
+}
+
+.section-title {
     text-align: center;
+    font-size: 28px;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
 
-    color: rgba(255,255,255,.58);
-
-    font-size: 13px;
-
-    line-height: 1.7;
-
-    padding: 0 20px;
-
+.section-subtitle {
+    text-align: center;
+    color: #8d929d;
+    font-size: 14px;
     margin-bottom: 35px;
 }
 
+/* =========================
+   MAP
+========================= */
 
-/* =====================================================
-   ZDJĘCIA
-===================================================== */
+.map-section {
+    padding-top: 55px;
+}
+
+.map-box {
+    position: relative;
+    width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 40%, #1c222b, #0b0d11 75%);
+    border: 1px solid rgba(255,255,255,.08);
+    padding: 18px 10px 25px;
+}
+
+.map {
+    width: 100%;
+    display: block;
+}
+
+.country {
+    fill: #303743;
+    stroke: #11151b;
+    stroke-width: .7;
+}
+
+.country.visited {
+    fill: #d8b07a;
+}
+
+.map-dot {
+    fill: #fff;
+    stroke: #d8b07a;
+    stroke-width: 2;
+}
+
+.map-label {
+    fill: white;
+    font-size: 7px;
+    font-weight: 600;
+}
+
+.visited-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.place {
+    border: 1px solid rgba(216,176,122,.35);
+    background: rgba(216,176,122,.08);
+    color: #d8b07a;
+    padding: 8px 11px;
+    border-radius: 100px;
+    font-size: 12px;
+}
+
+/* =========================
+   COUNTER
+========================= */
+
+.counter-card {
+    text-align: center;
+    background: linear-gradient(145deg, #151820, #0c0e13);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 28px;
+    padding: 32px 18px;
+}
+
+.counter-label {
+    color: #8f949e;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.counter {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+}
+
+.time-box {
+    background: rgba(255,255,255,.045);
+    border-radius: 15px;
+    padding: 14px 3px;
+}
+
+.time-number {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.time-name {
+    font-size: 9px;
+    color: #777d88;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.counter-date {
+    margin-top: 22px;
+    color: #b9bec8;
+    font-size: 13px;
+}
+
+/* =========================
+   PHOTOS
+========================= */
 
 .gallery {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
 .photo {
-    width: 100%;
-
-    height: 430px;
-
-    overflow: hidden;
-
-    border-radius: 25px;
-
-    background: #111;
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.35);
-
     position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    aspect-ratio: 4 / 5;
+    background: #151820;
 }
 
-.photo:nth-child(2n) {
-    height: 330px;
+.photo:nth-child(3n) {
+    aspect-ratio: 1 / 1;
 }
 
 .photo img {
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
     display: block;
-
-    transition:
-        transform .8s ease;
+    transition: transform .7s ease;
 }
 
-.photo:active img {
-    transform: scale(1.04);
+.photo:hover img {
+    transform: scale(1.06);
 }
 
 .photo::after {
     content: "";
-
     position: absolute;
-
     inset: 0;
-
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,.35),
-            transparent 45%
-        );
-
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,.4),
+        transparent 55%
+    );
     pointer-events: none;
 }
 
+/* =========================
+   MEMORY
+========================= */
 
-/* =====================================================
-   FILM W SEKCJI — NIE POTRZEBUJEMY GO JUŻ JAKO DUŻEGO
-===================================================== */
-
-.video-section {
-    padding-top: 30px;
+.memory {
+    text-align: center;
+    padding: 70px 20px;
 }
 
-.video-wrapper {
-    display: none;
+.memory-line {
+    width: 50px;
+    height: 1px;
+    background: #d8b07a;
+    margin: 0 auto 25px;
 }
 
-
-/* =====================================================
-   MAPA
-===================================================== */
-
-#map {
-    width: 100%;
-
-    height: 440px;
-
-    border-radius: 25px;
-
-    overflow: hidden;
-
-    border: 1px solid rgba(255,255,255,.1);
-
-    filter: saturate(.75);
+.memory-text {
+    font-size: 20px;
+    line-height: 1.6;
+    color: #d7d9de;
 }
 
-.map-info {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    margin-top: 20px;
+.memory-text span {
+    color: #d8b07a;
 }
 
-.place {
-    padding: 8px 12px;
-
-    border-radius: 100px;
-
-    background: rgba(255,255,255,.07);
-
-    border: 1px solid rgba(255,255,255,.1);
-
-    color: rgba(255,255,255,.7);
-
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   STOPKA
-===================================================== */
+/* =========================
+   FOOTER
+========================= */
 
 footer {
-    padding: 70px 20px 45px;
-
+    padding: 40px 20px 55px;
     text-align: center;
-
-    color: rgba(255,255,255,.45);
-
+    color: #555b65;
     font-size: 12px;
 }
 
-.footer-heart {
-    font-size: 30px;
+/* =========================
+   ANIMATION
+========================= */
 
-    margin-bottom: 15px;
-
-    color: #d8b8ff;
+.fade {
+    animation: fadeUp .9s ease both;
 }
 
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
 
-/* =====================================================
-   ŁADOWANIE
-===================================================== */
-
-.loading {
-    text-align: center;
-
-    padding: 50px 20px;
-
-    color: rgba(255,255,255,.4);
-
-    font-size: 13px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-
-
-/* =====================================================
-   LEAFLET
-===================================================== */
-
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip {
-    background: #15161a;
-
-    color: white;
-}
-
-.leaflet-popup-content {
-    font-family: Inter, sans-serif;
-
-    font-size: 12px;
-}
-
 </style>
 </head>
 
-
 <body>
 
+<!-- =========================
+     FILM W TLE
+========================= -->
 
-<!-- =====================================================
-     DRUGI FILM — TŁO
-===================================================== -->
+<section class="video-section">
 
-<video
-    id="backgroundVideo"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="auto">
-</video>
+    <!--
+    DRUGI PLIK = FILM
+    Jeśli drugi plik jest Twoim filmem z monetą,
+    zostaw tę nazwę.
+    -->
 
-<div class="video-darkness"></div>
-<div class="video-blur"></div>
+    <video
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+    >
+        <source src="1A96ECF9-403A-4D60-0000.mp4" type="video/mp4">
+    </video>
 
+    <div class="video-overlay"></div>
 
-<div class="page">
+    <div class="hero-content fade">
+        <div class="hero-small">
+            nasza historia
+        </div>
 
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
-<header class="hero">
-
-    <div class="hero-content">
-
-        <div class="small-title">
+        <div class="hero-title">
             Zuzia & Czarek
         </div>
 
-        <h1>
-            Razem<br>
-            <span>od 2023</span>
-        </h1>
-
-        <p class="hero-subtitle">
-            1 grudnia 2023
-        </p>
-
-
-        <div class="counter">
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="years">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    lat
-                </div>
-            </div>
-
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="months">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    miesięcy
-                </div>
-            </div>
-
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="days">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    dni
-                </div>
-            </div>
-
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="hours">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    godzin
-                </div>
-            </div>
-
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="minutes">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    minut
-                </div>
-            </div>
-
-
-            <div class="counter-box">
-                <div
-                    class="counter-number"
-                    id="seconds">
-                    0
-                </div>
-
-                <div class="counter-label">
-                    sekund
-                </div>
-            </div>
-
+        <div class="hero-date">
+            od 1 grudnia 2023
         </div>
-
-    </div>
-
-</header>
-
-
-<!-- =====================================================
-     ZDJĘCIA
-===================================================== -->
-
-<section>
-
-    <h2 class="section-title">
-        Nasze momenty
-    </h2>
-
-    <p class="section-description">
-        Kilka naszych wspólnych chwil.
-    </p>
-
-    <div
-        id="gallery"
-        class="gallery">
-
-        <div class="loading">
-            Ładowanie zdjęć...
-        </div>
-
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     PODRÓŻE
-===================================================== -->
+<main>
 
-<section>
+<!-- =========================
+     MAPA
+========================= -->
+
+<section class="section map-section">
 
     <h2 class="section-title">
         Nasze podróże
     </h2>
 
-    <p class="section-description">
-        Miejsca, które odwiedziliśmy razem.
+    <p class="section-subtitle">
+        miejsca, które odwiedziliśmy razem
     </p>
 
+    <div class="map-box">
 
-    <div id="map"></div>
+        <!-- prosta mapa świata -->
+        <svg class="map"
+             viewBox="0 0 1000 500"
+             xmlns="http://www.w3.org/2000/svg">
 
+            <!-- ocean -->
 
-    <div class="map-info">
+            <rect width="1000" height="500" fill="#0b0e13"/>
 
-        <div class="place">
-            🇵🇱 Polska
-        </div>
+            <!-- kontynenty - stylizowana mapa -->
 
-        <div class="place">
-            🇭🇺 Budapeszt
-        </div>
+            <path class="country"
+                d="M70 135 L120 105 L185 115 L215 150
+                   L205 195 L165 210 L135 190 L105 205
+                   L75 180 Z"/>
 
-        <div class="place">
-            🇮🇹 Rzym
-        </div>
+            <path class="country"
+                d="M220 215 L270 235 L285 290 L260 345
+                   L235 395 L210 360 L220 310 L195 270 Z"/>
 
-        <div class="place">
-            🇮🇹 Mediolan
-        </div>
+            <path class="country"
+                d="M410 120 L465 95 L530 110 L565 145
+                   L540 180 L500 175 L470 195 L430 170 Z"/>
 
-        <div class="place">
-            🇮🇹 Garda
-        </div>
+            <path class="country"
+                d="M475 190 L535 185 L570 230 L555 300
+                   L520 350 L480 320 L465 270 L445 230 Z"/>
 
-        <div class="place">
-            🇫🇷 Nicea
-        </div>
+            <path class="country"
+                d="M570 115 L640 100 L715 120 L760 155
+                   L730 190 L670 180 L620 200 L575 170 Z"/>
 
-        <div class="place">
-            🇲🇨 Monako
-        </div>
+            <path class="country"
+                d="M650 210 L720 200 L770 230 L785 290
+                   L750 335 L700 320 L665 275 Z"/>
 
-        <div class="place">
-            🇫🇷 Antibes
-        </div>
+            <path class="country"
+                d="M790 145 L850 125 L920 155 L940 200
+                   L900 220 L850 205 L810 180 Z"/>
 
-        <div class="place">
-            🇲🇨 Monte Carlo
+            <!-- Europa -->
+
+            <path class="country visited"
+                d="M470 155 L490 145 L515 150 L525 165
+                   L510 178 L485 172 Z"/>
+
+            <!-- Azja -->
+
+            <path class="country"
+                d="M520 145 L600 120 L675 145 L720 180
+                   L690 215 L620 200 L565 175 Z"/>
+
+            <!-- Afryka -->
+
+            <path class="country"
+                d="M480 205 L535 205 L555 250 L535 320
+                   L500 365 L470 325 L455 270 Z"/>
+
+            <!-- Australia -->
+
+            <path class="country"
+                d="M770 350 L830 335 L880 360 L875 400
+                   L820 415 L775 390 Z"/>
+
+            <!-- zaznaczone miejsca -->
+
+            <!-- Polska -->
+            <circle class="map-dot" cx="498" cy="155" r="5"/>
+            <text class="map-label" x="505" y="153">Polska</text>
+
+            <!-- Budapeszt -->
+            <circle class="map-dot" cx="492" cy="169" r="4"/>
+
+            <!-- Rzym -->
+            <circle class="map-dot" cx="478" cy="184" r="4"/>
+
+            <!-- Mediolan -->
+            <circle class="map-dot" cx="474" cy="174" r="4"/>
+
+            <!-- Garda -->
+            <circle class="map-dot" cx="470" cy="174" r="3"/>
+
+            <!-- Nicea -->
+            <circle class="map-dot" cx="467" cy="187" r="4"/>
+
+            <!-- Monaco -->
+            <circle class="map-dot" cx="468" cy="188" r="3"/>
+
+            <!-- Antibes -->
+            <circle class="map-dot" cx="466" cy="188" r="3"/>
+
+        </svg>
+
+        <div class="visited-list">
+
+            <div class="place">🇵🇱 Polska</div>
+            <div class="place">🇭🇺 Budapeszt</div>
+            <div class="place">🇮🇹 Rzym</div>
+            <div class="place">🇮🇹 Mediolan</div>
+            <div class="place">🇮🇹 Garda</div>
+            <div class="place">🇫🇷 Nicea</div>
+            <div class="place">🇲🇨 Monaco</div>
+            <div class="place">🇫🇷 Antibes</div>
+
         </div>
 
     </div>
@@ -641,478 +506,175 @@ footer {
 </section>
 
 
-<!-- =====================================================
-     STOPKA
-===================================================== -->
+<!-- =========================
+     LICZNIK
+========================= -->
 
-<footer>
+<section class="section">
 
-    <div class="footer-heart">
-        ♡
+    <div class="counter-card fade">
+
+        <div class="counter-label">
+            razem już
+        </div>
+
+        <div class="counter">
+
+            <div class="time-box">
+                <div class="time-number" id="years">0</div>
+                <div class="time-name">lat</div>
+            </div>
+
+            <div class="time-box">
+                <div class="time-number" id="months">0</div>
+                <div class="time-name">mies.</div>
+            </div>
+
+            <div class="time-box">
+                <div class="time-number" id="days">0</div>
+                <div class="time-name">dni</div>
+            </div>
+
+            <div class="time-box">
+                <div class="time-number" id="hours">0</div>
+                <div class="time-name">godz.</div>
+            </div>
+
+        </div>
+
+        <div class="counter-date">
+            01.12.2023 ❤️
+        </div>
+
     </div>
 
-    <p>
-        Zuzia & Czarek
+</section>
+
+
+<!-- =========================
+     ZDJĘCIA
+========================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        Nasze chwile
+    </h2>
+
+    <p class="section-subtitle">
+        trochę nas
     </p>
 
-    <p style="margin-top:7px;">
-        Od 1 grudnia 2023
-    </p>
+    <div class="gallery">
 
+        <div class="photo">
+            <img src="0EAB30FF-879F-4779....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="3EF53F92-950E-4048....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="4CC8ECD5-1BFC-443....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="59ffaa8bf43fb3c8c1d3....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="98F608F3-A90B-403B....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="B5027034-3020-4DB4....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="C2BF39C6-70E7-4823....jpg">
+        </div>
+
+        <div class="photo">
+            <img src="DBA09B47-2505-4487....jpg">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TEKST
+========================= -->
+
+<section class="memory">
+
+    <div class="memory-line"></div>
+
+    <div class="memory-text">
+
+        Od <span>1 grudnia 2023</span><br>
+        tworzymy własną historię.<br><br>
+
+        I oby było jeszcze<br>
+        dużo takich podróży. ❤️
+
+    </div>
+
+</section>
+
+
+<footer>
+    Zuzia & Czarek · 2023 — ∞
 </footer>
 
-
-</div>
-
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</main>
 
 
 <script>
 
-/* =====================================================
-   LICZNIK OD 1 GRUDNIA 2023
-===================================================== */
-
-const startDate =
-    new Date("2023-12-01T00:00:00");
-
+const startDate = new Date("2023-12-01T00:00:00");
 
 function updateCounter() {
 
     const now = new Date();
 
-    let years =
-        now.getFullYear()
-        - startDate.getFullYear();
-
-    let months =
-        now.getMonth()
-        - startDate.getMonth();
-
-    let days =
-        now.getDate()
-        - startDate.getDate();
-
-
-    if (days < 0) {
-
-        months--;
-
-        const previousMonth =
-            new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                0
-            );
-
-        days +=
-            previousMonth.getDate();
-    }
-
+    let years = now.getFullYear() - startDate.getFullYear();
+    let months = now.getMonth() - startDate.getMonth();
 
     if (months < 0) {
-
         years--;
-
         months += 12;
     }
 
-
-    const anniversary =
-        new Date(
-            startDate.getFullYear() + years,
-            startDate.getMonth() + months,
-            startDate.getDate()
-        );
-
-
-    let remaining =
-        now - anniversary;
-
-
-    const hours =
-        Math.floor(
-            remaining /
-            (1000 * 60 * 60)
-        );
-
-    remaining %=
-        (1000 * 60 * 60);
-
-
-    const minutes =
-        Math.floor(
-            remaining /
-            (1000 * 60)
-        );
-
-    remaining %=
-        (1000 * 60);
-
-
-    const seconds =
-        Math.floor(
-            remaining /
-            1000
-        );
-
-
-    document.getElementById("years")
-        .textContent = years;
-
-    document.getElementById("months")
-        .textContent = months;
-
-    document.getElementById("days")
-        .textContent = days;
-
-    document.getElementById("hours")
-        .textContent = hours;
-
-    document.getElementById("minutes")
-        .textContent = minutes;
-
-    document.getElementById("seconds")
-        .textContent = seconds;
-}
-
-
-updateCounter();
-
-setInterval(
-    updateCounter,
-    1000
-);
-
-
-/* =====================================================
-   GITHUB
-===================================================== */
-
-const GITHUB_USER =
-    "czarekpawlowski22-web";
-
-const GITHUB_REPO =
-    "Zuzia-i-Czarek-";
-
-
-const API_URL =
-    `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
-
-
-/* =====================================================
-   POBIERANIE ZDJĘĆ + DRUGIEGO FILMU
-===================================================== */
-
-async function loadFiles() {
-
-    try {
-
-        const response =
-            await fetch(API_URL);
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "GitHub API error"
-            );
-
-        }
-
-
-        const files =
-            await response.json();
-
-
-        /* -------------------------
-           ZDJĘCIA
-        ------------------------- */
-
-        const imageExtensions = [
-            ".jpg",
-            ".jpeg",
-            ".png",
-            ".webp",
-            ".gif",
-            ".heic"
-        ];
-
-
-        const images =
-            files.filter(file => {
-
-                const name =
-                    file.name.toLowerCase();
-
-                return imageExtensions.some(
-                    extension =>
-                        name.endsWith(extension)
-                );
-
-            });
-
-
-        const gallery =
-            document.getElementById(
-                "gallery"
-            );
-
-
-        gallery.innerHTML = "";
-
-
-        images.forEach(
-            (image, index) => {
-
-                const wrapper =
-                    document.createElement(
-                        "div"
-                    );
-
-
-                wrapper.className =
-                    "photo";
-
-
-                const img =
-                    document.createElement(
-                        "img"
-                    );
-
-
-                img.src =
-                    image.download_url;
-
-
-                img.alt =
-                    `Wspólne zdjęcie ${index + 1}`;
-
-
-                img.loading =
-                    "lazy";
-
-
-                wrapper.appendChild(img);
-
-                gallery.appendChild(wrapper);
-
-            }
-        );
-
-
-        /* -------------------------
-           FILMY
-        ------------------------- */
-
-        const videoExtensions = [
-            ".mp4",
-            ".webm",
-            ".mov",
-            ".m4v"
-        ];
-
-
-        const videos =
-            files.filter(file => {
-
-                const name =
-                    file.name.toLowerCase();
-
-                return videoExtensions.some(
-                    extension =>
-                        name.endsWith(extension)
-                );
-
-            });
-
-
-        /*
-           TUTAJ BIERZEMY DRUGI FILM.
-
-           0 = pierwszy
-           1 = drugi
-        */
-
-        if (videos.length >= 2) {
-
-            const secondVideo =
-                videos[1];
-
-
-            const backgroundVideo =
-                document.getElementById(
-                    "backgroundVideo"
-                );
-
-
-            backgroundVideo.src =
-                secondVideo.download_url;
-
-
-            backgroundVideo.load();
-
-
-            backgroundVideo.play()
-                .catch(() => {
-
-                    console.log(
-                        "Autoplay czeka na interakcję."
-                    );
-
-                });
-
-        } else if (videos.length === 1) {
-
-            /*
-               Jeżeli GitHub widzi tylko
-               jeden film, użyjemy tego jednego.
-            */
-
-            const backgroundVideo =
-                document.getElementById(
-                    "backgroundVideo"
-                );
-
-
-            backgroundVideo.src =
-                videos[0].download_url;
-
-
-            backgroundVideo.load();
-
-            backgroundVideo.play()
-                .catch(() => {});
-
-        }
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        document.getElementById(
-            "gallery"
-        ).innerHTML = `
-            <div class="loading">
-                Nie udało się załadować zdjęć.
-            </div>
-        `;
-
-    }
-
-}
-
-
-loadFiles();
-
-
-/* =====================================================
-   MAPA
-===================================================== */
-
-const map =
-    L.map("map", {
-        scrollWheelZoom: false
-    }).setView(
-        [46.8, 12.5],
-        5
+    let tempDate = new Date(startDate);
+    tempDate.setFullYear(
+        startDate.getFullYear() + years
     );
 
+    tempDate.setMonth(
+        startDate.getMonth() + months
+    );
 
-L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-        attribution:
-            "&copy; OpenStreetMap"
-    }
-).addTo(map);
+    let diff = now - tempDate;
 
+    let days = Math.floor(
+        diff / (1000 * 60 * 60 * 24)
+    );
 
-/* =====================================================
-   MIEJSCA
-===================================================== */
+    let hours = Math.floor(
+        (diff / (1000 * 60 * 60)) % 24
+    );
 
-const places = [
+    document.getElementById("years").textContent = years;
+    document.getElementById("months").textContent = months;
+    document.getElementById("days").textContent = days;
+    document.getElementById("hours").textContent = hours;
+}
 
-    {
-        name: "Polska 🇵🇱",
-        coords: [52.069, 19.480]
-    },
-
-    {
-        name: "Budapeszt 🇭🇺",
-        coords: [47.4979, 19.0402]
-    },
-
-    {
-        name: "Rzym 🇮🇹",
-        coords: [41.9028, 12.4964]
-    },
-
-    {
-        name: "Mediolan 🇮🇹",
-        coords: [45.4642, 9.1900]
-    },
-
-    {
-        name: "Jezioro Garda 🇮🇹",
-        coords: [45.6049, 10.6680]
-    },
-
-    {
-        name: "Nicea 🇫🇷",
-        coords: [43.7102, 7.2620]
-    },
-
-    {
-        name: "Monako 🇲🇨",
-        coords: [43.7384, 7.4246]
-    },
-
-    {
-        name: "Antibes 🇫🇷",
-        coords: [43.5808, 7.1239]
-    },
-
-    {
-        name: "Monte Carlo 🇲🇨",
-        coords: [43.7397, 7.4273]
-    }
-
-];
-
-
-places.forEach(place => {
-
-    L.marker(place.coords)
-        .addTo(map)
-        .bindPopup(
-            `<strong>${place.name}</strong>`
-        );
-
-});
-
-
-/* =====================================================
-   TRASA
-===================================================== */
-
-L.polyline(
-
-    places.map(
-        place => place.coords
-    ),
-
-    {
-        color: "#c8a6ff",
-        weight: 2,
-        opacity: .65,
-        dashArray: "5 9"
-    }
-
-).addTo(map);
+updateCounter();
+setInterval(updateCounter, 60000);
 
 </script>
 
