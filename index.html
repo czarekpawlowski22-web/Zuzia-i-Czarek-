@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Zuzia & Czarek ❤️</title>
+
+  <meta name="description"
+        content="Nasza historia, wspomnienia i najpiękniejsze chwile.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #080808;
+      color: #fff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* TŁO */
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 80, 120, 0.12), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(180, 50, 100, 0.10), transparent 30%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* NAWIGACJA */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(8, 8, 8, 0.75);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #ff547d;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff547d;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 25px 60px;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .heart {
+      font-size: 45px;
+      animation: heartbeat 1.8s infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(50px, 10vw, 110px);
+      line-height: 0.95;
+      letter-spacing: -5px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      color: #ff547d;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 18px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 35px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      background: #ff547d;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255,84,125,0.25);
+    }
+
+    /* SEKCJE */
+
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 110px 25px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #888;
+    }
+
+    /* HISTORIA */
+
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .story-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      padding: 35px;
+      transition: 0.3s;
+    }
+
+    .story-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255,84,125,0.4);
+    }
+
+    .story-card h3 {
+      color: #ff547d;
+      margin-bottom: 15px;
+      font-size: 23px;
+    }
+
+    .story-card p {
+      color: #aaa;
+    }
+
+    /* GALERIA */
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .photo {
+      height: 320px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #191919, #272727);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: 0.5s;
+    }
+
+    .photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo-placeholder {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #777;
+      padding: 20px;
+    }
+
+    /* DLA CIEBIE */
+
+    .message {
+      background: linear-gradient(
+        135deg,
+        rgba(255,84,125,0.12),
+        rgba(255,255,255,0.03)
+      );
+
+      border: 1px solid rgba(255,84,125,0.2);
+      border-radius: 30px;
+      padding: 60px 35px;
+      text-align: center;
+    }
+
+    .message h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
+    }
+
+    .message p {
+      max-width: 700px;
+      margin: auto;
+      color: #bbb;
+      font-size: 18px;
+    }
+
+    /* STOPKA */
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 40px 25px;
+      text-align: center;
+      color: #666;
+    }
+
+    footer strong {
+      color: #ff547d;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 750px) {
+
+      nav {
+        padding: 15px 18px;
+      }
+
+      nav ul {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 12px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .story {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .photo {
+        height: 230px;
+      }
+
+      .section-title h2 {
+        font-size: 34px;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      nav ul {
+        display: none;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .photo {
+        height: 330px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAWIGACJA -->
+
+  <header>
+    <nav>
+      <a href="#top" class="logo">
+        Zuzia <span>&</span> Czarek
+      </a>
+
+      <ul>
+        <li><a href="#historia">Historia</a></li>
+        <li><a href="#wspomnienia">Wspomnienia</a></li>
+        <li><a href="#dla-ciebie">Dla Ciebie</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- GŁÓWNY EKRAN -->
+
+  <main id="top">
+
+    <section class="hero">
+
+      <div class="hero-content">
+
+        <div class="heart">❤️</div>
+
+        <h1>
+          Zuzia <span>&</span> Czarek
+        </h1>
+
+        <p>
+          Dwie osoby. Jedna historia.
+          I mnóstwo wspomnień, które dopiero tworzymy.
+        </p>
+
+        <a href="#historia" class="button">
+          Poznaj naszą historię ↓
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- HISTORIA -->
+
+    <section id="historia">
+
+      <div class="section-title">
+        <h2>Nasza historia</h2>
+        <p>Najważniejsze momenty naszej wspólnej historii.</p>
+      </div>
+
+      <div class="story">
+
+        <div class="story-card">
+          <h3>Jak się poznaliśmy</h3>
+
+          <p>
+            Tutaj później wpiszemy Waszą prawdziwą historię.
+            Możemy zrobić z tego piękną opowieść — od pierwszego
+            spotkania aż do dzisiaj.
+          </p>
+        </div>
+
+        <div class="story-card">
+          <h3>Pierwsze wspólne chwile</h3>
+
+          <p>
+            Tutaj dodamy najważniejsze momenty, które wydarzyły się
+            na początku Waszej relacji.
+          </p>
+        </div>
+
+        <div class="story-card">
+          <h3>Najpiękniejsze wspomnienia</h3>
+
+          <p>
+            Wyjazdy, spacery, śmiech, głupie sytuacje i wszystkie
+            małe rzeczy, które sprawiają, że ta historia jest Wasza.
+          </p>
+        </div>
+
+        <div class="story-card">
+          <h3>A to dopiero początek...</h3>
+
+          <p>
+            Ta strona będzie się zmieniać razem z Wami.
+            Będziemy dodawać kolejne zdjęcia i kolejne wspomnienia.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- GALERIA -->
+
+    <section id="wspomnienia">
+
+      <div class="section-title">
+        <h2>Wspomnienia</h2>
+        <p>Nasze ulubione chwile.</p>
+      </div>
+
+      <div class="gallery">
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+        <div class="photo">
+          <div class="photo-placeholder">
+            📸<br>
+            Tutaj dodamy zdjęcie
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DLA CIEBIE -->
+
+    <section id="dla-ciebie">
+
+      <div class="message">
+
+        <h2>Dla Ciebie ❤️</h2>
+
+        <p>
+          Możemy tutaj stworzyć osobisty list tylko dla Zuzi.
+          Napiszemy go razem i zrobimy z niego jedną
+          z najważniejszych części całej strony.
+        </p>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- STOPKA -->
+
+  <footer>
+    Zrobione z ❤️ dla <strong>Zuzi</strong>
+  </footer>
+
+</body>
+</html>
