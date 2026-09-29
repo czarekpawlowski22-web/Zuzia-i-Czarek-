@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Zuzia & Czarek</title>
 
@@ -11,11 +11,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
 <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
 
 <style>
+
+/* =====================================================
+   PODSTAWA — TYLKO TELEFON
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -28,308 +32,422 @@ html {
 }
 
 body {
-    background: #08090c;
-    color: #f5f5f5;
+    background: #050507;
+    color: #fff;
     font-family: Inter, sans-serif;
     overflow-x: hidden;
 }
 
-/* ---------- HERO ---------- */
+.page {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: #08090c;
+}
+
+
+/* =====================================================
+   FILM W TLE
+===================================================== */
+
+#backgroundVideo {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: -3;
+
+    background: #050507;
+}
+
+.video-darkness {
+    position: fixed;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.72) 45%,
+            rgba(0,0,0,.94)
+        );
+
+    z-index: -2;
+
+    pointer-events: none;
+}
+
+.video-blur {
+    position: fixed;
+    inset: 0;
+
+    backdrop-filter: blur(2px);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
-    min-height: 100vh;
-    position: relative;
+    min-height: 100svh;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    padding: 40px 20px;
-}
 
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 50% 35%, rgba(255,255,255,.10), transparent 30%),
-        radial-gradient(circle at 20% 80%, rgba(160,100,255,.08), transparent 25%),
-        radial-gradient(circle at 80% 20%, rgba(255,100,150,.08), transparent 25%);
+    padding: 35px 22px;
+
+    text-align: center;
+
+    position: relative;
 }
 
 .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
+    width: 100%;
 }
 
 .small-title {
     text-transform: uppercase;
-    letter-spacing: 5px;
-    font-size: 12px;
-    color: #aaa;
+    letter-spacing: 4px;
+
+    font-size: 10px;
+
+    color: rgba(255,255,255,.7);
+
     margin-bottom: 25px;
 }
 
 .hero h1 {
     font-family: "Playfair Display", serif;
-    font-size: clamp(55px, 12vw, 130px);
-    line-height: .9;
+
+    font-size: 67px;
+
+    line-height: .92;
+
     font-weight: 500;
+
+    letter-spacing: -2px;
+
     margin-bottom: 25px;
 }
 
 .hero h1 span {
-    color: #d9b8ff;
+    color: #d8b8ff;
 }
 
 .hero-subtitle {
-    color: #aaa;
-    font-size: 16px;
-    margin-bottom: 45px;
+    color: rgba(255,255,255,.7);
+
+    font-size: 13px;
+
+    margin-bottom: 35px;
 }
 
-/* ---------- COUNTER ---------- */
+
+/* =====================================================
+   LICZNIK
+===================================================== */
 
 .counter {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    width: 100%;
 }
 
 .counter-box {
-    min-width: 95px;
-    padding: 18px 15px;
-    border: 1px solid rgba(255,255,255,.12);
-    background: rgba(255,255,255,.04);
+    padding: 14px 5px;
+
+    border-radius: 17px;
+
+    background: rgba(255,255,255,.08);
+
+    border: 1px solid rgba(255,255,255,.13);
+
     backdrop-filter: blur(15px);
-    border-radius: 18px;
 }
 
 .counter-number {
-    font-size: 30px;
+    font-size: 23px;
+
     font-weight: 700;
+
+    line-height: 1.1;
 }
 
 .counter-label {
     margin-top: 5px;
-    font-size: 10px;
+
+    font-size: 8px;
+
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: #888;
+
+    letter-spacing: 1.5px;
+
+    color: rgba(255,255,255,.5);
 }
 
-/* ---------- SECTIONS ---------- */
+
+/* =====================================================
+   SEKCJE
+===================================================== */
 
 section {
-    padding: 100px 20px;
-    max-width: 1200px;
-    margin: auto;
+    padding: 75px 15px;
 }
 
 .section-title {
     font-family: "Playfair Display", serif;
-    font-size: clamp(40px, 7vw, 70px);
+
+    font-size: 42px;
+
+    font-weight: 500;
+
     text-align: center;
-    margin-bottom: 15px;
+
+    margin-bottom: 12px;
 }
 
 .section-description {
     text-align: center;
-    color: #888;
-    max-width: 600px;
-    margin: 0 auto 55px;
+
+    color: rgba(255,255,255,.58);
+
+    font-size: 13px;
+
     line-height: 1.7;
+
+    padding: 0 20px;
+
+    margin-bottom: 35px;
 }
 
-/* ---------- GALLERY ---------- */
+
+/* =====================================================
+   ZDJĘCIA
+===================================================== */
 
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
 }
 
 .photo {
-    position: relative;
+    width: 100%;
+
+    height: 430px;
+
     overflow: hidden;
-    border-radius: 22px;
-    min-height: 350px;
-    background: #111318;
+
+    border-radius: 25px;
+
+    background: #111;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.35);
+
+    position: relative;
 }
 
-.photo:nth-child(2),
-.photo:nth-child(5) {
-    transform: translateY(45px);
+.photo:nth-child(2n) {
+    height: 330px;
 }
 
 .photo img {
     width: 100%;
     height: 100%;
-    min-height: 350px;
+
     object-fit: cover;
+
     display: block;
-    transition: transform .8s cubic-bezier(.2,.7,.2,1);
+
+    transition:
+        transform .8s ease;
 }
 
-.photo:hover img {
-    transform: scale(1.06);
+.photo:active img {
+    transform: scale(1.04);
 }
 
 .photo::after {
     content: "";
+
     position: absolute;
+
     inset: 0;
-    background: linear-gradient(
-        to top,
-        rgba(0,0,0,.4),
-        transparent 50%
-    );
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.35),
+            transparent 45%
+        );
+
     pointer-events: none;
 }
 
-/* ---------- VIDEO ---------- */
+
+/* =====================================================
+   FILM W SEKCJI — NIE POTRZEBUJEMY GO JUŻ JAKO DUŻEGO
+===================================================== */
 
 .video-section {
-    max-width: 1000px;
+    padding-top: 30px;
 }
 
 .video-wrapper {
-    position: relative;
-    border-radius: 30px;
-    overflow: hidden;
-    background: #111;
-    box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    display: none;
 }
 
-.video-wrapper video {
-    width: 100%;
-    display: block;
-    max-height: 700px;
-    object-fit: cover;
-}
 
-.video-caption {
-    padding: 22px;
-    background: #101116;
-    text-align: center;
-    color: #999;
-}
-
-/* ---------- MAP ---------- */
+/* =====================================================
+   MAPA
+===================================================== */
 
 #map {
-    height: 600px;
     width: 100%;
-    border-radius: 30px;
+
+    height: 440px;
+
+    border-radius: 25px;
+
     overflow: hidden;
+
+    border: 1px solid rgba(255,255,255,.1);
+
     filter: saturate(.75);
 }
 
 .map-info {
-    margin-top: 25px;
     display: flex;
-    justify-content: center;
-    gap: 10px;
+
     flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 20px;
 }
 
 .place {
-    border: 1px solid rgba(255,255,255,.1);
-    background: rgba(255,255,255,.04);
-    padding: 10px 16px;
+    padding: 8px 12px;
+
     border-radius: 100px;
-    color: #bbb;
-    font-size: 13px;
+
+    background: rgba(255,255,255,.07);
+
+    border: 1px solid rgba(255,255,255,.1);
+
+    color: rgba(255,255,255,.7);
+
+    font-size: 10px;
 }
 
-/* ---------- FOOTER ---------- */
+
+/* =====================================================
+   STOPKA
+===================================================== */
 
 footer {
+    padding: 70px 20px 45px;
+
     text-align: center;
-    padding: 80px 20px 50px;
-    color: #555;
+
+    color: rgba(255,255,255,.45);
+
+    font-size: 12px;
 }
 
 .footer-heart {
-    font-size: 28px;
+    font-size: 30px;
+
     margin-bottom: 15px;
+
+    color: #d8b8ff;
 }
 
-/* ---------- LOADING ---------- */
+
+/* =====================================================
+   ŁADOWANIE
+===================================================== */
 
 .loading {
     text-align: center;
-    padding: 50px;
-    color: #666;
+
+    padding: 50px 20px;
+
+    color: rgba(255,255,255,.4);
+
+    font-size: 13px;
 }
 
-/* ---------- MOBILE ---------- */
 
-@media (max-width: 800px) {
+/* =====================================================
+   LEAFLET
+===================================================== */
 
-    section {
-        padding: 80px 15px;
-    }
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background: #15161a;
 
-    .gallery {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .photo {
-        min-height: 260px;
-        border-radius: 16px;
-    }
-
-    .photo img {
-        min-height: 260px;
-    }
-
-    .photo:nth-child(2),
-    .photo:nth-child(5) {
-        transform: none;
-    }
-
-    #map {
-        height: 450px;
-        border-radius: 20px;
-    }
-
+    color: white;
 }
 
-@media (max-width: 500px) {
+.leaflet-popup-content {
+    font-family: Inter, sans-serif;
 
-    .gallery {
-        grid-template-columns: 1fr;
-    }
-
-    .photo {
-        min-height: 420px;
-    }
-
-    .photo img {
-        min-height: 420px;
-    }
-
-    .counter-box {
-        min-width: 78px;
-        padding: 15px 8px;
-    }
-
-    .counter-number {
-        font-size: 25px;
-    }
-
+    font-size: 12px;
 }
 
 </style>
 </head>
 
+
 <body>
 
-<!-- ================= HERO ================= -->
+
+<!-- =====================================================
+     DRUGI FILM — TŁO
+===================================================== -->
+
+<video
+    id="backgroundVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="auto">
+</video>
+
+<div class="video-darkness"></div>
+<div class="video-blur"></div>
+
+
+<div class="page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <header class="hero">
 
@@ -345,39 +463,87 @@ footer {
         </h1>
 
         <p class="hero-subtitle">
-            1 grudnia 2023 — i dalej liczymy.
+            1 grudnia 2023
         </p>
+
 
         <div class="counter">
 
             <div class="counter-box">
-                <div class="counter-number" id="years">0</div>
-                <div class="counter-label">lat</div>
+                <div
+                    class="counter-number"
+                    id="years">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    lat
+                </div>
             </div>
 
-            <div class="counter-box">
-                <div class="counter-number" id="months">0</div>
-                <div class="counter-label">miesięcy</div>
-            </div>
 
             <div class="counter-box">
-                <div class="counter-number" id="days">0</div>
-                <div class="counter-label">dni</div>
+                <div
+                    class="counter-number"
+                    id="months">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    miesięcy
+                </div>
             </div>
 
-            <div class="counter-box">
-                <div class="counter-number" id="hours">0</div>
-                <div class="counter-label">godzin</div>
-            </div>
 
             <div class="counter-box">
-                <div class="counter-number" id="minutes">0</div>
-                <div class="counter-label">minut</div>
+                <div
+                    class="counter-number"
+                    id="days">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    dni
+                </div>
             </div>
 
+
             <div class="counter-box">
-                <div class="counter-number" id="seconds">0</div>
-                <div class="counter-label">sekund</div>
+                <div
+                    class="counter-number"
+                    id="hours">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    godzin
+                </div>
+            </div>
+
+
+            <div class="counter-box">
+                <div
+                    class="counter-number"
+                    id="minutes">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    minut
+                </div>
+            </div>
+
+
+            <div class="counter-box">
+                <div
+                    class="counter-number"
+                    id="seconds">
+                    0
+                </div>
+
+                <div class="counter-label">
+                    sekund
+                </div>
             </div>
 
         </div>
@@ -387,7 +553,9 @@ footer {
 </header>
 
 
-<!-- ================= ZDJĘCIA ================= -->
+<!-- =====================================================
+     ZDJĘCIA
+===================================================== -->
 
 <section>
 
@@ -396,10 +564,12 @@ footer {
     </h2>
 
     <p class="section-description">
-        Kilka wspomnień z naszego wspólnego czasu.
+        Kilka naszych wspólnych chwil.
     </p>
 
-    <div id="gallery" class="gallery">
+    <div
+        id="gallery"
+        class="gallery">
 
         <div class="loading">
             Ładowanie zdjęć...
@@ -410,30 +580,9 @@ footer {
 </section>
 
 
-<!-- ================= VIDEO ================= -->
-
-<section class="video-section">
-
-    <h2 class="section-title">
-        Jedno ze wspomnień
-    </h2>
-
-    <p class="section-description">
-        Mały moment, który warto zachować.
-    </p>
-
-    <div id="videoContainer">
-
-        <div class="loading">
-            Ładowanie filmu...
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= MAPA ================= -->
+<!-- =====================================================
+     PODRÓŻE
+===================================================== -->
 
 <section>
 
@@ -445,148 +594,236 @@ footer {
         Miejsca, które odwiedziliśmy razem.
     </p>
 
+
     <div id="map"></div>
+
 
     <div class="map-info">
 
-        <div class="place">🇵🇱 Polska</div>
-        <div class="place">🇭🇺 Budapeszt</div>
-        <div class="place">🇮🇹 Rzym</div>
-        <div class="place">🇮🇹 Mediolan</div>
-        <div class="place">🇮🇹 Jezioro Garda</div>
-        <div class="place">🇫🇷 Nicea</div>
-        <div class="place">🇲🇨 Monako</div>
-        <div class="place">🇫🇷 Antibes</div>
-        <div class="place">🇲🇨 Monte Carlo</div>
+        <div class="place">
+            🇵🇱 Polska
+        </div>
+
+        <div class="place">
+            🇭🇺 Budapeszt
+        </div>
+
+        <div class="place">
+            🇮🇹 Rzym
+        </div>
+
+        <div class="place">
+            🇮🇹 Mediolan
+        </div>
+
+        <div class="place">
+            🇮🇹 Garda
+        </div>
+
+        <div class="place">
+            🇫🇷 Nicea
+        </div>
+
+        <div class="place">
+            🇲🇨 Monako
+        </div>
+
+        <div class="place">
+            🇫🇷 Antibes
+        </div>
+
+        <div class="place">
+            🇲🇨 Monte Carlo
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- =====================================================
+     STOPKA
+===================================================== -->
 
 <footer>
 
-    <div class="footer-heart">♡</div>
+    <div class="footer-heart">
+        ♡
+    </div>
 
     <p>
         Zuzia & Czarek
     </p>
 
-    <p style="margin-top:8px;">
+    <p style="margin-top:7px;">
         Od 1 grudnia 2023
     </p>
 
 </footer>
 
 
+</div>
+
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 
 <script>
 
 /* =====================================================
-   LICZNIK
+   LICZNIK OD 1 GRUDNIA 2023
 ===================================================== */
 
-const startDate = new Date("2023-12-01T00:00:00");
+const startDate =
+    new Date("2023-12-01T00:00:00");
+
 
 function updateCounter() {
 
     const now = new Date();
 
-    let years = now.getFullYear() - startDate.getFullYear();
-    let months = now.getMonth() - startDate.getMonth();
-    let days = now.getDate() - startDate.getDate();
+    let years =
+        now.getFullYear()
+        - startDate.getFullYear();
+
+    let months =
+        now.getMonth()
+        - startDate.getMonth();
+
+    let days =
+        now.getDate()
+        - startDate.getDate();
+
 
     if (days < 0) {
+
         months--;
 
-        const previousMonth = new Date(
-            now.getFullYear(),
-            now.getMonth(),
-            0
-        );
+        const previousMonth =
+            new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                0
+            );
 
-        days += previousMonth.getDate();
+        days +=
+            previousMonth.getDate();
     }
 
+
     if (months < 0) {
+
         years--;
+
         months += 12;
     }
 
-    let lastAnniversary = new Date(
-        startDate.getFullYear() + years,
-        startDate.getMonth() + months,
-        startDate.getDate()
-    );
 
-    let remaining = now - lastAnniversary;
+    const anniversary =
+        new Date(
+            startDate.getFullYear() + years,
+            startDate.getMonth() + months,
+            startDate.getDate()
+        );
 
-    const hours = Math.floor(
-        remaining / (1000 * 60 * 60)
-    );
 
-    remaining %= (1000 * 60 * 60);
+    let remaining =
+        now - anniversary;
 
-    const minutes = Math.floor(
-        remaining / (1000 * 60)
-    );
 
-    remaining %= (1000 * 60);
+    const hours =
+        Math.floor(
+            remaining /
+            (1000 * 60 * 60)
+        );
 
-    const seconds = Math.floor(
-        remaining / 1000
-    );
+    remaining %=
+        (1000 * 60 * 60);
 
-    document.getElementById("years").textContent = years;
-    document.getElementById("months").textContent = months;
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
+
+    const minutes =
+        Math.floor(
+            remaining /
+            (1000 * 60)
+        );
+
+    remaining %=
+        (1000 * 60);
+
+
+    const seconds =
+        Math.floor(
+            remaining /
+            1000
+        );
+
+
+    document.getElementById("years")
+        .textContent = years;
+
+    document.getElementById("months")
+        .textContent = months;
+
+    document.getElementById("days")
+        .textContent = days;
+
+    document.getElementById("hours")
+        .textContent = hours;
+
+    document.getElementById("minutes")
+        .textContent = minutes;
+
+    document.getElementById("seconds")
+        .textContent = seconds;
 }
+
 
 updateCounter();
 
-setInterval(updateCounter, 1000);
+setInterval(
+    updateCounter,
+    1000
+);
 
 
 /* =====================================================
-   AUTOMATYCZNE WCZYTYWANIE PLIKÓW Z GITHUBA
+   GITHUB
 ===================================================== */
 
-/*
-   Dzięki temu NIE MUSIMY wpisywać ręcznie
-   tych długich nazw typu:
+const GITHUB_USER =
+    "czarekpawlowski22-web";
 
-   0EAB30FF-879F-4779...
-   1A96ECF9-403A-4D60...
-   itd.
+const GITHUB_REPO =
+    "Zuzia-i-Czarek-";
 
-   Kod pobiera listę plików bezpośrednio
-   z Twojego publicznego repozytorium.
-*/
-
-const GITHUB_USER = "czarekpawlowski22-web";
-const GITHUB_REPO = "Zuzia-i-Czarek-";
 
 const API_URL =
     `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
 
 
+/* =====================================================
+   POBIERANIE ZDJĘĆ + DRUGIEGO FILMU
+===================================================== */
+
 async function loadFiles() {
 
     try {
 
-        const response = await fetch(API_URL);
+        const response =
+            await fetch(API_URL);
+
 
         if (!response.ok) {
-            throw new Error("Nie udało się pobrać plików.");
+
+            throw new Error(
+                "GitHub API error"
+            );
+
         }
 
-        const files = await response.json();
+
+        const files =
+            await response.json();
 
 
         /* -------------------------
@@ -602,61 +839,71 @@ async function loadFiles() {
             ".heic"
         ];
 
-        const images = files.filter(file => {
 
-            const name = file.name.toLowerCase();
+        const images =
+            files.filter(file => {
 
-            return imageExtensions.some(
-                ext => name.endsWith(ext)
-            );
+                const name =
+                    file.name.toLowerCase();
 
-        });
+                return imageExtensions.some(
+                    extension =>
+                        name.endsWith(extension)
+                );
+
+            });
 
 
         const gallery =
-            document.getElementById("gallery");
+            document.getElementById(
+                "gallery"
+            );
+
 
         gallery.innerHTML = "";
 
 
-        if (images.length === 0) {
-
-            gallery.innerHTML = `
-                <div class="loading">
-                    Nie znaleziono zdjęć.
-                </div>
-            `;
-
-        } else {
-
-            images.forEach((image, index) => {
+        images.forEach(
+            (image, index) => {
 
                 const wrapper =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
-                wrapper.className = "photo";
+
+                wrapper.className =
+                    "photo";
+
 
                 const img =
-                    document.createElement("img");
+                    document.createElement(
+                        "img"
+                    );
 
-                img.src = image.download_url;
+
+                img.src =
+                    image.download_url;
+
 
                 img.alt =
-                    `Nasze zdjęcie ${index + 1}`;
+                    `Wspólne zdjęcie ${index + 1}`;
 
-                img.loading = "lazy";
+
+                img.loading =
+                    "lazy";
+
 
                 wrapper.appendChild(img);
 
                 gallery.appendChild(wrapper);
 
-            });
-
-        }
+            }
+        );
 
 
         /* -------------------------
-           FILM
+           FILMY
         ------------------------- */
 
         const videoExtensions = [
@@ -666,100 +913,97 @@ async function loadFiles() {
             ".m4v"
         ];
 
-        const videos = files.filter(file => {
 
-            const name = file.name.toLowerCase();
+        const videos =
+            files.filter(file => {
 
-            return videoExtensions.some(
-                ext => name.endsWith(ext)
-            );
+                const name =
+                    file.name.toLowerCase();
 
-        });
+                return videoExtensions.some(
+                    extension =>
+                        name.endsWith(extension)
+                );
 
-
-        const videoContainer =
-            document.getElementById("videoContainer");
-
-        videoContainer.innerHTML = "";
+            });
 
 
-        if (videos.length > 0) {
+        /*
+           TUTAJ BIERZEMY DRUGI FILM.
 
-            const videoWrapper =
-                document.createElement("div");
+           0 = pierwszy
+           1 = drugi
+        */
 
-            videoWrapper.className =
-                "video-wrapper";
+        if (videos.length >= 2) {
+
+            const secondVideo =
+                videos[1];
 
 
-            const video =
-                document.createElement("video");
+            const backgroundVideo =
+                document.getElementById(
+                    "backgroundVideo"
+                );
 
-            video.src = videos[0].download_url;
 
-            video.controls = true;
+            backgroundVideo.src =
+                secondVideo.download_url;
 
-            video.playsInline = true;
 
-            video.preload = "metadata";
+            backgroundVideo.load();
 
+
+            backgroundVideo.play()
+                .catch(() => {
+
+                    console.log(
+                        "Autoplay czeka na interakcję."
+                    );
+
+                });
+
+        } else if (videos.length === 1) {
 
             /*
-               Jeśli chcesz, żeby film sam się
-               odtwarzał bez dźwięku jako tło,
-               możesz odkomentować:
-               
-               video.autoplay = true;
-               video.muted = true;
-               video.loop = true;
+               Jeżeli GitHub widzi tylko
+               jeden film, użyjemy tego jednego.
             */
 
-
-            const caption =
-                document.createElement("div");
-
-            caption.className =
-                "video-caption";
-
-            caption.textContent =
-                "Nasze wspomnienie";
+            const backgroundVideo =
+                document.getElementById(
+                    "backgroundVideo"
+                );
 
 
-            videoWrapper.appendChild(video);
+            backgroundVideo.src =
+                videos[0].download_url;
 
-            videoWrapper.appendChild(caption);
 
-            videoContainer.appendChild(videoWrapper);
+            backgroundVideo.load();
 
-        } else {
-
-            videoContainer.innerHTML = `
-                <div class="loading">
-                    Nie znaleziono filmu.
-                </div>
-            `;
+            backgroundVideo.play()
+                .catch(() => {});
 
         }
+
 
     } catch (error) {
 
         console.error(error);
 
-        document.getElementById("gallery").innerHTML = `
+        document.getElementById(
+            "gallery"
+        ).innerHTML = `
             <div class="loading">
                 Nie udało się załadować zdjęć.
-            </div>
-        `;
-
-        document.getElementById("videoContainer").innerHTML = `
-            <div class="loading">
-                Nie udało się załadować filmu.
             </div>
         `;
 
     }
 
 }
+
 
 loadFiles();
 
@@ -768,27 +1012,32 @@ loadFiles();
    MAPA
 ===================================================== */
 
-const map = L.map("map", {
-    scrollWheelZoom: false
-}).setView([46.8, 12.5], 5);
+const map =
+    L.map("map", {
+        scrollWheelZoom: false
+    }).setView(
+        [46.8, 12.5],
+        5
+    );
 
 
 L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
-        attribution: "&copy; OpenStreetMap"
+        attribution:
+            "&copy; OpenStreetMap"
     }
 ).addTo(map);
 
 
-/* -------------------------
+/* =====================================================
    MIEJSCA
-------------------------- */
+===================================================== */
 
 const places = [
 
     {
-        name: "Polska",
+        name: "Polska 🇵🇱",
         coords: [52.069, 19.480]
     },
 
@@ -846,24 +1095,24 @@ places.forEach(place => {
 });
 
 
-/* -------------------------
-   LINIA PODRÓŻY
-------------------------- */
-
-const route = places.map(
-    place => place.coords
-);
+/* =====================================================
+   TRASA
+===================================================== */
 
 L.polyline(
-    route,
-    {
-        color: "#b98cff",
-        weight: 2,
-        opacity: .6,
-        dashArray: "6 10"
-    }
-).addTo(map);
 
+    places.map(
+        place => place.coords
+    ),
+
+    {
+        color: "#c8a6ff",
+        weight: 2,
+        opacity: .65,
+        dashArray: "5 9"
+    }
+
+).addTo(map);
 
 </script>
 
