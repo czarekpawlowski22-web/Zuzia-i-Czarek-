@@ -8,177 +8,348 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-    background: #080808;
-    color: #fff;
-    font-family: "Inter", sans-serif;
+html{
+    scroll-behavior:smooth;
 }
 
-.container {
-    width: min(1100px, 92%);
-    margin: auto;
+body{
+    background:#070707;
+    color:#f5f5f5;
+    font-family:Inter,Arial,sans-serif;
+    overflow-x:hidden;
 }
 
-/* HEADER */
-
-header {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.container{
+    width:min(1150px,92%);
+    margin:auto;
 }
 
-header h1 {
-    font-size: clamp(45px, 9vw, 100px);
-    font-weight: 600;
-    letter-spacing: -4px;
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
 }
 
-header p {
-    margin-top: 15px;
-    color: #999;
-    font-size: 15px;
+.hero::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.09),
+        transparent 65%
+    );
+    filter:blur(30px);
 }
 
-/* COUNTER */
-
-.counter-section {
-    padding: 80px 0;
-    text-align: center;
+.hero-content{
+    position:relative;
+    z-index:2;
 }
 
-.counter-title {
-    color: #888;
-    font-size: 14px;
-    margin-bottom: 25px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+.small-title{
+    color:#777;
+    font-size:12px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:25px;
 }
 
-.counter {
-    display: flex;
-    justify-content: center;
-    gap: 45px;
-    flex-wrap: wrap;
+.hero h1{
+    font-size:clamp(55px,11vw,130px);
+    font-weight:500;
+    letter-spacing:-7px;
+    line-height:.9;
 }
 
-.counter div {
-    min-width: 80px;
+.hero-date{
+    margin-top:30px;
+    color:#777;
+    font-size:14px;
+    letter-spacing:2px;
 }
 
-.number {
-    font-size: 42px;
-    font-weight: 600;
+.scroll{
+    position:absolute;
+    bottom:35px;
+    color:#555;
+    font-size:11px;
+    letter-spacing:3px;
+    text-transform:uppercase;
 }
 
-.label {
-    color: #777;
-    font-size: 12px;
-    margin-top: 5px;
+/* =========================
+   SECTIONS
+========================= */
+
+section{
+    padding:120px 0;
 }
 
-/* PHOTOS */
-
-.photos {
-    padding: 80px 0;
+.section-label{
+    color:#666;
+    font-size:11px;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-bottom:15px;
 }
 
-.section-title {
-    font-size: 30px;
-    margin-bottom: 30px;
+.section-title{
+    font-size:clamp(32px,6vw,55px);
+    font-weight:500;
+    letter-spacing:-2px;
 }
 
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+/* =========================
+   COUNTER
+========================= */
+
+.counter-section{
+    border-top:1px solid #161616;
+    border-bottom:1px solid #161616;
+    text-align:center;
 }
 
-.gallery img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 8px;
-    background: #151515;
-    transition: 0.3s;
+.counter{
+    margin-top:55px;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:15px;
 }
 
-.gallery img:hover {
-    transform: scale(1.015);
+.counter-box{
+    padding:30px 10px;
+    background:#0d0d0d;
+    border:1px solid #1b1b1b;
+    border-radius:14px;
 }
 
-/* MAP */
-
-.travel {
-    padding: 80px 0;
+.counter-number{
+    font-size:clamp(28px,5vw,55px);
+    font-weight:500;
+    letter-spacing:-2px;
 }
 
-#map {
-    height: 550px;
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 30px;
+.counter-label{
+    color:#666;
+    margin-top:8px;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:2px;
 }
 
-.places {
-    margin-top: 25px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+/* =========================
+   PHOTOS
+========================= */
+
+.photos{
+    overflow:hidden;
 }
 
-.place {
-    border: 1px solid #292929;
-    padding: 10px 15px;
-    border-radius: 100px;
-    color: #bbb;
-    font-size: 13px;
+.gallery{
+    margin-top:55px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
 }
 
-/* FOOTER */
-
-footer {
-    text-align: center;
-    padding: 80px 0 40px;
-    color: #555;
-    font-size: 12px;
+.photo{
+    position:relative;
+    overflow:hidden;
+    border-radius:14px;
+    aspect-ratio:4/5;
+    background:#111;
+    border:1px solid #1c1c1c;
 }
 
-/* MOBILE */
+.photo:nth-child(2),
+.photo:nth-child(5){
+    transform:translateY(35px);
+}
 
-@media (max-width: 700px) {
+.photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:
+        transform .8s cubic-bezier(.2,.8,.2,1),
+        filter .8s;
+}
 
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
+.photo:hover img{
+    transform:scale(1.08);
+    filter:brightness(.75);
+}
+
+.photo::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.35),
+        transparent 45%
+    );
+    pointer-events:none;
+}
+
+/* delikatne animacje */
+
+.photo:nth-child(1){
+    animation:float1 6s ease-in-out infinite;
+}
+
+.photo:nth-child(2){
+    animation:float2 7s ease-in-out infinite;
+}
+
+.photo:nth-child(3){
+    animation:float1 8s ease-in-out infinite;
+}
+
+.photo:nth-child(4){
+    animation:float2 6.5s ease-in-out infinite;
+}
+
+.photo:nth-child(5){
+    animation:float1 7.5s ease-in-out infinite;
+}
+
+.photo:nth-child(6){
+    animation:float2 8s ease-in-out infinite;
+}
+
+@keyframes float1{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-7px)}
+}
+
+@keyframes float2{
+    0%,100%{transform:translateY(35px)}
+    50%{transform:translateY(27px)}
+}
+
+/* =========================
+   TRAVEL
+========================= */
+
+.travel{
+    border-top:1px solid #161616;
+}
+
+.map-wrapper{
+    margin-top:55px;
+    border:1px solid #1d1d1d;
+    border-radius:16px;
+    overflow:hidden;
+    background:#0d0d0d;
+}
+
+#map{
+    width:100%;
+    height:600px;
+}
+
+.places{
+    padding:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.place{
+    padding:9px 13px;
+    border:1px solid #242424;
+    border-radius:100px;
+    color:#888;
+    font-size:11px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    border-top:1px solid #151515;
+    padding:60px 0;
+    text-align:center;
+    color:#444;
+    font-size:11px;
+    letter-spacing:2px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    section{
+        padding:85px 0;
     }
 
-    .counter {
-        gap: 25px;
+    .hero h1{
+        letter-spacing:-4px;
     }
 
-    .number {
-        font-size: 32px;
+    .counter{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    #map {
-        height: 450px;
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+        gap:9px;
+    }
+
+    .photo:nth-child(2),
+    .photo:nth-child(5){
+        transform:translateY(20px);
+    }
+
+    #map{
+        height:450px;
+    }
+}
+
+@media(max-width:500px){
+
+    .counter{
+        gap:8px;
+    }
+
+    .counter-box{
+        padding:20px 5px;
+    }
+
+    .counter-number{
+        font-size:25px;
+    }
+
+    .counter-label{
+        font-size:8px;
     }
 
 }
@@ -186,84 +357,160 @@ footer {
 </style>
 </head>
 
+
 <body>
 
-<header>
 
-    <div>
-        <h1>Czarek & Zuzia</h1>
-        <p>01.12.2023 — ∞</p>
+<!-- =========================
+     HERO
+========================= -->
+
+<header class="hero">
+
+    <div class="hero-content">
+
+        <div class="small-title">
+            Czarek × Zuzia
+        </div>
+
+        <h1>01.12.23</h1>
+
+        <div class="hero-date">
+            od tego dnia
+        </div>
+
+    </div>
+
+    <div class="scroll">
+        przewiń
     </div>
 
 </header>
 
 
+<!-- =========================
+     COUNTER
+========================= -->
+
 <section class="counter-section">
 
-    <div class="container">
+<div class="container">
 
-        <div class="counter-title">
-            Razem już
+    <div class="section-label">
+        Razem
+    </div>
+
+    <h2 class="section-title">
+        Czas
+    </h2>
+
+    <div class="counter">
+
+        <div class="counter-box">
+            <div class="counter-number" id="years">0</div>
+            <div class="counter-label">lat</div>
         </div>
 
-        <div class="counter">
+        <div class="counter-box">
+            <div class="counter-number" id="months">0</div>
+            <div class="counter-label">miesięcy</div>
+        </div>
 
-            <div>
-                <div class="number" id="days">0</div>
-                <div class="label">dni</div>
-            </div>
+        <div class="counter-box">
+            <div class="counter-number" id="days">0</div>
+            <div class="counter-label">dni</div>
+        </div>
 
-            <div>
-                <div class="number" id="hours">0</div>
-                <div class="label">godzin</div>
-            </div>
+        <div class="counter-box">
+            <div class="counter-number" id="hours">00</div>
+            <div class="counter-label">godzin</div>
+        </div>
 
-            <div>
-                <div class="number" id="minutes">0</div>
-                <div class="label">minut</div>
-            </div>
+        <div class="counter-box">
+            <div class="counter-number" id="minutes">00</div>
+            <div class="counter-label">minut</div>
+        </div>
 
-            <div>
-                <div class="number" id="seconds">0</div>
-                <div class="label">sekund</div>
-            </div>
-
+        <div class="counter-box">
+            <div class="counter-number" id="seconds">00</div>
+            <div class="counter-label">sekund</div>
         </div>
 
     </div>
 
+</div>
+
 </section>
 
+
+<!-- =========================
+     ZDJĘCIA
+========================= -->
 
 <section class="photos">
 
-    <div class="container">
+<div class="container">
 
-        <h2 class="section-title">Zdjęcia</h2>
+    <div class="section-label">
+        Wspomnienia
+    </div>
 
-        <div class="gallery">
+    <h2 class="section-title">
+        Zdjęcia
+    </h2>
 
-            <!-- TUTAJ BĘDZIEMY DODAWAĆ ZDJĘCIA -->
 
-            <img src="zdjecie1.jpg" alt="">
-            <img src="zdjecie2.jpg" alt="">
-            <img src="zdjecie3.jpg" alt="">
-            <img src="zdjecie4.jpg" alt="">
-            <img src="zdjecie5.jpg" alt="">
-            <img src="zdjecie6.jpg" alt="">
+    <div class="gallery">
 
+        <div class="photo">
+            <img src="photo1.jpg" alt="Zdjęcie">
+        </div>
+
+        <div class="photo">
+            <img src="photo2.jpg" alt="Zdjęcie">
+        </div>
+
+        <div class="photo">
+            <img src="photo3.jpg" alt="Zdjęcie">
+        </div>
+
+        <div class="photo">
+            <img src="photo4.jpg" alt="Zdjęcie">
+        </div>
+
+        <div class="photo">
+            <img src="photo5.jpg" alt="Zdjęcie">
+        </div>
+
+        <div class="photo">
+            <img src="photo6.jpg" alt="Zdjęcie">
         </div>
 
     </div>
 
+</div>
+
 </section>
 
 
+<!-- =========================
+     PODRÓŻE
+========================= -->
+
 <section class="travel">
 
-    <div class="container">
+<div class="container">
 
-        <h2 class="section-title">Podróże</h2>
+    <div class="section-label">
+        Razem odwiedzone
+    </div>
+
+    <h2 class="section-title">
+        Podróże
+    </h2>
+
+
+    <div class="map-wrapper">
 
         <div id="map"></div>
 
@@ -283,63 +530,118 @@ footer {
 
     </div>
 
+</div>
+
 </section>
 
 
 <footer>
-    01.12.2023
+    01.12.2023 — ∞
 </footer>
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+
 <script>
 
-/* LICZNIK */
+/* =========================
+   LICZNIK
+========================= */
 
-const startDate = new Date("2023-12-01T00:00:00");
+const start = new Date("2023-12-01T00:00:00");
 
-function updateCounter() {
+function updateCounter(){
 
     const now = new Date();
 
-    const difference = now - startDate;
+    let years = now.getFullYear() - start.getFullYear();
 
-    const secondsTotal = Math.floor(difference / 1000);
+    let months = now.getMonth() - start.getMonth();
 
-    const days = Math.floor(secondsTotal / 86400);
+    let tempDate = new Date(start);
 
-    const hours = Math.floor((secondsTotal % 86400) / 3600);
+    tempDate.setFullYear(
+        start.getFullYear() + years
+    );
 
-    const minutes = Math.floor((secondsTotal % 3600) / 60);
+    if(tempDate > now){
 
-    const seconds = secondsTotal % 60;
+        years--;
+
+        tempDate = new Date(start);
+
+        tempDate.setFullYear(
+            start.getFullYear() + years
+        );
+
+    }
+
+    months = now.getMonth() - tempDate.getMonth();
+
+    if(months < 0){
+        months += 12;
+    }
+
+    tempDate.setMonth(
+        tempDate.getMonth() + months
+    );
+
+    let remaining = now - tempDate;
+
+    const day = 1000 * 60 * 60 * 24;
+    const hour = 1000 * 60 * 60;
+    const minute = 1000 * 60;
+
+    const days = Math.floor(remaining / day);
+
+    remaining %= day;
+
+    const hours = Math.floor(remaining / hour);
+
+    remaining %= hour;
+
+    const minutes = Math.floor(remaining / minute);
+
+    const seconds =
+        Math.floor((remaining % minute) / 1000);
+
+
+    document.getElementById("years").textContent = years;
+
+    document.getElementById("months").textContent = months;
 
     document.getElementById("days").textContent = days;
 
     document.getElementById("hours").textContent =
-        String(hours).padStart(2, "0");
+        String(hours).padStart(2,"0");
 
     document.getElementById("minutes").textContent =
-        String(minutes).padStart(2, "0");
+        String(minutes).padStart(2,"0");
 
     document.getElementById("seconds").textContent =
-        String(seconds).padStart(2, "0");
+        String(seconds).padStart(2,"0");
+
 }
 
 updateCounter();
 
-setInterval(updateCounter, 1000);
+setInterval(updateCounter,1000);
 
 
-/* MAPA */
+/* =========================
+   MAPA
+========================= */
 
-const map = L.map("map").setView([45.5, 10], 5);
+const map = L.map("map").setView(
+    [45.5,10],
+    5
+);
 
 L.tileLayer(
     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     {
-        attribution: '&copy; OpenStreetMap contributors'
+        attribution:"© OpenStreetMap"
     }
 ).addTo(map);
 
@@ -348,70 +650,57 @@ L.tileLayer(
 
 const places = [
 
-    {
-        name: "Budapeszt 🇭🇺",
-        lat: 47.4979,
-        lng: 19.0402
-    },
+    ["Polska",52.0693,19.4803],
 
-    {
-        name: "Rzym 🇮🇹",
-        lat: 41.9028,
-        lng: 12.4964
-    },
+    ["Budapeszt 🇭🇺",47.4979,19.0402],
 
-    {
-        name: "Mediolan 🇮🇹",
-        lat: 45.4642,
-        lng: 9.1900
-    },
+    ["Rzym 🇮🇹",41.9028,12.4964],
 
-    {
-        name: "Jezioro Garda 🇮🇹",
-        lat: 45.6049,
-        lng: 10.6687
-    },
+    ["Mediolan 🇮🇹",45.4642,9.1900],
 
-    {
-        name: "Nicea 🇫🇷",
-        lat: 43.7102,
-        lng: 7.2620
-    },
+    ["Jezioro Garda 🇮🇹",45.6049,10.6687],
 
-    {
-        name: "Antibes 🇫🇷",
-        lat: 43.5808,
-        lng: 7.1239
-    },
+    ["Nicea 🇫🇷",43.7102,7.2620],
 
-    {
-        name: "Monako 🇲🇨",
-        lat: 43.7384,
-        lng: 7.4246
-    },
+    ["Antibes 🇫🇷",43.5808,7.1239],
 
-    {
-        name: "Menton 🇫🇷",
-        lat: 43.7765,
-        lng: 7.5044
-    },
+    ["Monako 🇲🇨",43.7384,7.4246],
 
-    {
-        name: "Polska 🇵🇱",
-        lat: 52.0693,
-        lng: 19.4803
-    }
+    ["Menton 🇫🇷",43.7765,7.5044]
 
 ];
 
 
 places.forEach(place => {
 
-    L.marker([place.lat, place.lng])
-        .addTo(map)
-        .bindPopup(`<b>${place.name}</b>`);
+    L.marker([
+        place[1],
+        place[2]
+    ])
+    .addTo(map)
+    .bindPopup(
+        "<strong>"+place[0]+"</strong>"
+    );
 
 });
+
+
+/* LINIA PODRÓŻY */
+
+const route = places.map(place => [
+    place[1],
+    place[2]
+]);
+
+L.polyline(
+    route,
+    {
+        color:"#777",
+        weight:2,
+        opacity:.6,
+        dashArray:"6 8"
+    }
+).addTo(map);
 
 </script>
 
