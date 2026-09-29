@@ -1,538 +1,419 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Zuzia & Czarek ❤️</title>
+<title>Czarek & Zuzia</title>
 
-  <meta name="description"
-        content="Nasza historia, wspomnienia i najpiękniejsze chwile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
-    html {
-      scroll-behavior: smooth;
-    }
+<style>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #080808;
-      color: #fff;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    /* TŁO */
+body {
+    background: #080808;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+}
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255, 80, 120, 0.12), transparent 30%),
-        radial-gradient(circle at 80% 70%, rgba(180, 50, 100, 0.10), transparent 30%);
-      pointer-events: none;
-      z-index: -1;
-    }
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
 
-    /* NAWIGACJA */
+/* HEADER */
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background: rgba(8, 8, 8, 0.75);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+header {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
-    nav {
-      max-width: 1100px;
-      margin: auto;
-      padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+header h1 {
+    font-size: clamp(45px, 9vw, 100px);
+    font-weight: 600;
+    letter-spacing: -4px;
+}
 
-    .logo {
-      color: white;
-      text-decoration: none;
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+header p {
+    margin-top: 15px;
+    color: #999;
+    font-size: 15px;
+}
 
-    .logo span {
-      color: #ff547d;
-    }
+/* COUNTER */
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 28px;
-    }
+.counter-section {
+    padding: 80px 0;
+    text-align: center;
+}
 
-    nav a {
-      color: #ddd;
-      text-decoration: none;
-      font-size: 14px;
-      transition: 0.3s;
-    }
+.counter-title {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-    nav a:hover {
-      color: #ff547d;
-    }
+.counter {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    flex-wrap: wrap;
+}
 
-    /* HERO */
+.counter div {
+    min-width: 80px;
+}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 100px 25px 60px;
-      position: relative;
-    }
+.number {
+    font-size: 42px;
+    font-weight: 600;
+}
 
-    .hero-content {
-      max-width: 850px;
-    }
+.label {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
 
-    .heart {
-      font-size: 45px;
-      animation: heartbeat 1.8s infinite;
-      margin-bottom: 15px;
-    }
+/* PHOTOS */
 
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
+.photos {
+    padding: 80px 0;
+}
 
-      50% {
-        transform: scale(1.15);
-      }
-    }
+.section-title {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
 
-    .hero h1 {
-      font-size: clamp(50px, 10vw, 110px);
-      line-height: 0.95;
-      letter-spacing: -5px;
-      margin-bottom: 25px;
-    }
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
 
-    .hero h1 span {
-      color: #ff547d;
-    }
+.gallery img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #151515;
+    transition: 0.3s;
+}
 
-    .hero p {
-      color: #aaa;
-      font-size: 18px;
-      max-width: 600px;
-      margin: auto;
-    }
+.gallery img:hover {
+    transform: scale(1.015);
+}
 
-    .button {
-      display: inline-block;
-      margin-top: 35px;
-      padding: 14px 28px;
-      border-radius: 50px;
-      background: #ff547d;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+/* MAP */
 
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(255,84,125,0.25);
-    }
+.travel {
+    padding: 80px 0;
+}
 
-    /* SEKCJE */
+#map {
+    height: 550px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 30px;
+}
 
-    section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 110px 25px;
-    }
+.places {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-    .section-title {
-      text-align: center;
-      margin-bottom: 55px;
-    }
+.place {
+    border: 1px solid #292929;
+    padding: 10px 15px;
+    border-radius: 100px;
+    color: #bbb;
+    font-size: 13px;
+}
 
-    .section-title h2 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
+/* FOOTER */
 
-    .section-title p {
-      color: #888;
-    }
+footer {
+    text-align: center;
+    padding: 80px 0 40px;
+    color: #555;
+    font-size: 12px;
+}
 
-    /* HISTORIA */
+/* MOBILE */
 
-    .story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    .story-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 25px;
-      padding: 35px;
-      transition: 0.3s;
-    }
-
-    .story-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255,84,125,0.4);
-    }
-
-    .story-card h3 {
-      color: #ff547d;
-      margin-bottom: 15px;
-      font-size: 23px;
-    }
-
-    .story-card p {
-      color: #aaa;
-    }
-
-    /* GALERIA */
+@media (max-width: 700px) {
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .photo {
-      height: 320px;
-      border-radius: 22px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #191919, #272727);
-      border: 1px solid rgba(255,255,255,0.08);
-      position: relative;
+    .counter {
+        gap: 25px;
     }
 
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: 0.5s;
+    .number {
+        font-size: 32px;
     }
 
-    .photo:hover img {
-      transform: scale(1.05);
+    #map {
+        height: 450px;
     }
 
-    .photo-placeholder {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #777;
-      padding: 20px;
-    }
+}
 
-    /* DLA CIEBIE */
-
-    .message {
-      background: linear-gradient(
-        135deg,
-        rgba(255,84,125,0.12),
-        rgba(255,255,255,0.03)
-      );
-
-      border: 1px solid rgba(255,84,125,0.2);
-      border-radius: 30px;
-      padding: 60px 35px;
-      text-align: center;
-    }
-
-    .message h2 {
-      font-size: 40px;
-      margin-bottom: 20px;
-    }
-
-    .message p {
-      max-width: 700px;
-      margin: auto;
-      color: #bbb;
-      font-size: 18px;
-    }
-
-    /* STOPKA */
-
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 40px 25px;
-      text-align: center;
-      color: #666;
-    }
-
-    footer strong {
-      color: #ff547d;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 750px) {
-
-      nav {
-        padding: 15px 18px;
-      }
-
-      nav ul {
-        gap: 12px;
-      }
-
-      nav a {
-        font-size: 12px;
-      }
-
-      .hero h1 {
-        letter-spacing: -3px;
-      }
-
-      .hero p {
-        font-size: 16px;
-      }
-
-      .story {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .photo {
-        height: 230px;
-      }
-
-      .section-title h2 {
-        font-size: 34px;
-      }
-    }
-
-    @media (max-width: 480px) {
-
-      nav ul {
-        display: none;
-      }
-
-      .gallery {
-        grid-template-columns: 1fr;
-      }
-
-      .photo {
-        height: 330px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <!-- NAWIGACJA -->
+<header>
 
-  <header>
-    <nav>
-      <a href="#top" class="logo">
-        Zuzia <span>&</span> Czarek
-      </a>
+    <div>
+        <h1>Czarek & Zuzia</h1>
+        <p>01.12.2023 — ∞</p>
+    </div>
 
-      <ul>
-        <li><a href="#historia">Historia</a></li>
-        <li><a href="#wspomnienia">Wspomnienia</a></li>
-        <li><a href="#dla-ciebie">Dla Ciebie</a></li>
-      </ul>
-    </nav>
-  </header>
+</header>
 
 
-  <!-- GŁÓWNY EKRAN -->
+<section class="counter-section">
 
-  <main id="top">
+    <div class="container">
 
-    <section class="hero">
-
-      <div class="hero-content">
-
-        <div class="heart">❤️</div>
-
-        <h1>
-          Zuzia <span>&</span> Czarek
-        </h1>
-
-        <p>
-          Dwie osoby. Jedna historia.
-          I mnóstwo wspomnień, które dopiero tworzymy.
-        </p>
-
-        <a href="#historia" class="button">
-          Poznaj naszą historię ↓
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- HISTORIA -->
-
-    <section id="historia">
-
-      <div class="section-title">
-        <h2>Nasza historia</h2>
-        <p>Najważniejsze momenty naszej wspólnej historii.</p>
-      </div>
-
-      <div class="story">
-
-        <div class="story-card">
-          <h3>Jak się poznaliśmy</h3>
-
-          <p>
-            Tutaj później wpiszemy Waszą prawdziwą historię.
-            Możemy zrobić z tego piękną opowieść — od pierwszego
-            spotkania aż do dzisiaj.
-          </p>
+        <div class="counter-title">
+            Razem już
         </div>
 
-        <div class="story-card">
-          <h3>Pierwsze wspólne chwile</h3>
+        <div class="counter">
 
-          <p>
-            Tutaj dodamy najważniejsze momenty, które wydarzyły się
-            na początku Waszej relacji.
-          </p>
+            <div>
+                <div class="number" id="days">0</div>
+                <div class="label">dni</div>
+            </div>
+
+            <div>
+                <div class="number" id="hours">0</div>
+                <div class="label">godzin</div>
+            </div>
+
+            <div>
+                <div class="number" id="minutes">0</div>
+                <div class="label">minut</div>
+            </div>
+
+            <div>
+                <div class="number" id="seconds">0</div>
+                <div class="label">sekund</div>
+            </div>
+
         </div>
 
-        <div class="story-card">
-          <h3>Najpiękniejsze wspomnienia</h3>
+    </div>
 
-          <p>
-            Wyjazdy, spacery, śmiech, głupie sytuacje i wszystkie
-            małe rzeczy, które sprawiają, że ta historia jest Wasza.
-          </p>
+</section>
+
+
+<section class="photos">
+
+    <div class="container">
+
+        <h2 class="section-title">Zdjęcia</h2>
+
+        <div class="gallery">
+
+            <!-- TUTAJ BĘDZIEMY DODAWAĆ ZDJĘCIA -->
+
+            <img src="zdjecie1.jpg" alt="">
+            <img src="zdjecie2.jpg" alt="">
+            <img src="zdjecie3.jpg" alt="">
+            <img src="zdjecie4.jpg" alt="">
+            <img src="zdjecie5.jpg" alt="">
+            <img src="zdjecie6.jpg" alt="">
+
         </div>
 
-        <div class="story-card">
-          <h3>A to dopiero początek...</h3>
+    </div>
 
-          <p>
-            Ta strona będzie się zmieniać razem z Wami.
-            Będziemy dodawać kolejne zdjęcia i kolejne wspomnienia.
-          </p>
+</section>
+
+
+<section class="travel">
+
+    <div class="container">
+
+        <h2 class="section-title">Podróże</h2>
+
+        <div id="map"></div>
+
+        <div class="places">
+
+            <div class="place">🇵🇱 Polska</div>
+            <div class="place">🇭🇺 Budapeszt</div>
+            <div class="place">🇮🇹 Rzym</div>
+            <div class="place">🇮🇹 Mediolan</div>
+            <div class="place">🇮🇹 Jezioro Garda</div>
+            <div class="place">🇫🇷 Nicea</div>
+            <div class="place">🇫🇷 Antibes</div>
+            <div class="place">🇲🇨 Monako</div>
+            <div class="place">🇫🇷 Menton</div>
+
         </div>
 
-      </div>
+    </div>
 
-    </section>
-
-
-    <!-- GALERIA -->
-
-    <section id="wspomnienia">
-
-      <div class="section-title">
-        <h2>Wspomnienia</h2>
-        <p>Nasze ulubione chwile.</p>
-      </div>
-
-      <div class="gallery">
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-        <div class="photo">
-          <div class="photo-placeholder">
-            📸<br>
-            Tutaj dodamy zdjęcie
-          </div>
-        </div>
-
-      </div>
-
-    </section>
+</section>
 
 
-    <!-- DLA CIEBIE -->
-
-    <section id="dla-ciebie">
-
-      <div class="message">
-
-        <h2>Dla Ciebie ❤️</h2>
-
-        <p>
-          Możemy tutaj stworzyć osobisty list tylko dla Zuzi.
-          Napiszemy go razem i zrobimy z niego jedną
-          z najważniejszych części całej strony.
-        </p>
-
-      </div>
-
-    </section>
-
-  </main>
+<footer>
+    01.12.2023
+</footer>
 
 
-  <!-- STOPKA -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <footer>
-    Zrobione z ❤️ dla <strong>Zuzi</strong>
-  </footer>
+<script>
+
+/* LICZNIK */
+
+const startDate = new Date("2023-12-01T00:00:00");
+
+function updateCounter() {
+
+    const now = new Date();
+
+    const difference = now - startDate;
+
+    const secondsTotal = Math.floor(difference / 1000);
+
+    const days = Math.floor(secondsTotal / 86400);
+
+    const hours = Math.floor((secondsTotal % 86400) / 3600);
+
+    const minutes = Math.floor((secondsTotal % 3600) / 60);
+
+    const seconds = secondsTotal % 60;
+
+    document.getElementById("days").textContent = days;
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCounter();
+
+setInterval(updateCounter, 1000);
+
+
+/* MAPA */
+
+const map = L.map("map").setView([45.5, 10], 5);
+
+L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        attribution: '&copy; OpenStreetMap contributors'
+    }
+).addTo(map);
+
+
+/* MIEJSCA */
+
+const places = [
+
+    {
+        name: "Budapeszt 🇭🇺",
+        lat: 47.4979,
+        lng: 19.0402
+    },
+
+    {
+        name: "Rzym 🇮🇹",
+        lat: 41.9028,
+        lng: 12.4964
+    },
+
+    {
+        name: "Mediolan 🇮🇹",
+        lat: 45.4642,
+        lng: 9.1900
+    },
+
+    {
+        name: "Jezioro Garda 🇮🇹",
+        lat: 45.6049,
+        lng: 10.6687
+    },
+
+    {
+        name: "Nicea 🇫🇷",
+        lat: 43.7102,
+        lng: 7.2620
+    },
+
+    {
+        name: "Antibes 🇫🇷",
+        lat: 43.5808,
+        lng: 7.1239
+    },
+
+    {
+        name: "Monako 🇲🇨",
+        lat: 43.7384,
+        lng: 7.4246
+    },
+
+    {
+        name: "Menton 🇫🇷",
+        lat: 43.7765,
+        lng: 7.5044
+    },
+
+    {
+        name: "Polska 🇵🇱",
+        lat: 52.0693,
+        lng: 19.4803
+    }
+
+];
+
+
+places.forEach(place => {
+
+    L.marker([place.lat, place.lng])
+        .addTo(map)
+        .bindPopup(`<b>${place.name}</b>`);
+
+});
+
+</script>
 
 </body>
 </html>
